@@ -7,8 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    defaultSecond: 3,
     time: '',
+    defaultSecond: 3,
     timerStatus: 'stop',
     confirmVisible: false
   },
@@ -65,7 +65,10 @@ Page({
   hideConfirm() {
     this.setData({confirmVisible: false})
   },
-
+  againTimer() {
+    this.setData({defaultSecond: 5})
+    this.startTimer()
+  },
   /**
    * 生命周期函数--监听页面加载
    */

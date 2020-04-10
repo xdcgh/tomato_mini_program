@@ -2,16 +2,19 @@
     <view class="clock">
         <g-clock fontSize="52" text="{{time}}"/>
     </view>
-    <view class="stop" wx:if="{{defaultSecond !== 0}}">
-        <g-button type="change" size="mini" text="暂停"
-                  bindtap="clearTimer" wx:if="{{timerStatus === 'start'}}"/>
-        <g-button type="change" size="mini" text="开始"
-                  bindtap="startTimer" wx:else/>
+    <view wx:if="{{defaultSecond !== 0}}">
+        <view class="stop">
+            <g-button type="change" size="mini" text="暂停"
+                      bindtap="clearTimer" wx:if="{{timerStatus === 'start'}}"/>
+            <g-button type="change" size="mini" text="开始"
+                      bindtap="startTimer" wx:else/>
+        </view>
+        <view class="abandon">
+            <g-button size="mini" bindtap="showConfirm" text="取消"/>
+        </view>
     </view>
-    <view class="abandon" wx:if="{{defaultSecond !== 0}}">
-        <g-button size="mini" bindtap="showConfirm" text="取消"/>
-    </view>
-    <view class="again" wx:if="{{defaultSecond === 0}}">
+
+    <view class="again" wx:else bindtap="againTimer">
         <g-button type="change" size="mini" text="重新开始"/>
     </view>
 
