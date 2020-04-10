@@ -36,14 +36,14 @@ Page({
     this.changeTime()
 
     this.timer = setInterval(() => {
+      this.data.defaultSecond--
+      this.changeTime()
 
       if (this.data.defaultSecond === 0) {
         this.setData({defaultSecond: 0})
+
         return this.clearTimer()
       }
-
-      this.data.defaultSecond--
-      this.changeTime()
     }, 1000)
   },
   clearTimer() {
