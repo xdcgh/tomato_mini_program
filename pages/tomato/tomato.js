@@ -10,7 +10,8 @@ Page({
     time: '',
     defaultSecond: 3,
     timerStatus: 'stop',
-    confirmVisible: false
+    confirmVisible: false,
+    finishConfirmVisible: false
   },
   changeTime() {
     let m = Math.floor(this.data.defaultSecond / 60)
@@ -40,7 +41,7 @@ Page({
       this.changeTime()
 
       if (this.data.defaultSecond === 0) {
-        this.setData({defaultSecond: 0})
+        this.setData({defaultSecond: 0, finishConfirmVisible: true})
 
         return this.clearTimer()
       }
@@ -53,6 +54,7 @@ Page({
   },
   showConfirm() {
     this.setData({confirmVisible: true})
+    this.clearTimer()
   },
   confirmAbandon(event) {
     let content = event.detail
@@ -64,11 +66,20 @@ Page({
   },
   hideConfirm() {
     this.setData({confirmVisible: false})
+    this.startTimer()
   },
   againTimer() {
     this.setData({defaultSecond: 5})
     this.startTimer()
   },
+  confirmFinish(event) {
+    let content = event.detail
+    console.log(content)
+  },
+  confirmCancel() {
+    this.setData({finishConfirmVisible: false})
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
