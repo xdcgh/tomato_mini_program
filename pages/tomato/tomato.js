@@ -60,9 +60,9 @@ Page({
     let content = event.detail
 
     console.log(content)
-    // wx.navigateTo({
-    //   url:'/pages/home/home'
-    // })
+    wx.navigateBack({
+      to: -1
+    })
   },
   hideConfirm() {
     this.setData({confirmVisible: false})
