@@ -1,0 +1,20 @@
+<view class="tomatoContainer">
+    <view class="clock">
+        <g-clock fontSize="52" text="{{time}}"/>
+    </view>
+    <view class="stop" wx:if="{{defaultSecond !== 0}}">
+        <g-button type="change" size="mini" text="暂停"
+                  bindtap="clearTimer" wx:if="{{timerStatus === 'start'}}"/>
+        <g-button type="change" size="mini" text="开始"
+                  bindtap="startTimer" wx:else/>
+    </view>
+    <view class="abandon" wx:if="{{defaultSecond !== 0}}">
+        <g-button size="mini" bindtap="showConfirm" text="取消"/>
+    </view>
+    <view class="again" wx:if="{{defaultSecond === 0}}">
+        <g-button type="change" size="mini" text="重新开始"/>
+    </view>
+
+    <g-confirm visible="{{confirmVisible}}" placeholder="请输入放弃原因哦"
+               bindconfirm="confirmAbandon" bindcancel="hideConfirm"/>
+</view>
