@@ -1,0 +1,38 @@
+.binding {
+    height: 100vh;
+    padding-top: 90rpx;
+}
+
+.binding .title {
+    color: #333;
+    font-size: 32rpx;
+    padding-left: 44rpx;
+}
+
+.binding .inputWrapper {
+    padding-left: 0 55rpx;
+    margin-top: 80rpx;
+}
+
+.binding .inputWrapper > input {
+    border: 2rpx solid #f6705a;
+    padding: 16rpx 32rpx;
+    border-radius: 16rpx;
+    color: #333;
+    margin: 56rpx 20rpx;
+    font-size: 24rpx;
+}
+
+.binding .tips {
+    color: #f6705a;
+    font-size: 24rpx;
+    text-align: center;
+    margin-top: 48rpx;
+}
+
+.binding .bg {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}

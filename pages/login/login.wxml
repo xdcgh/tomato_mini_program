@@ -7,5 +7,5 @@
     </view>
 
     <button class="loginButton">登录</button>
-    <text class="binding">还没有与 PC 端绑定？ 去绑定 ></text>
+    <navigator url="/pages/binding/binding" class="binding">还没有与 PC 端绑定？ 去绑定 ></navigator>
 </view>
