@@ -1,4 +1,6 @@
 // pages/tomato/tomato.js
+const {http} = require('../../lib/http')
+
 Page({
 
   timer: null,
@@ -8,10 +10,11 @@ Page({
    */
   data: {
     time: '',
-    defaultSecond: 3,
+    defaultSecond: 1500,
     timerStatus: 'stop',
     confirmVisible: false,
-    finishConfirmVisible: false
+    finishConfirmVisible: false,
+    tomato: {}
   },
   changeTime() {
     let m = Math.floor(this.data.defaultSecond / 60)
@@ -59,9 +62,13 @@ Page({
   confirmAbandon(event) {
     let content = event.detail
 
-    console.log(content)
-    wx.navigateBack({
-      to: -1
+    http.put(`/tomatoes/${this.data.tomato.id}`, {
+      description: content,
+      aborted: true
+    }).then(() => {
+      wx.navigateBack({
+        to: -1
+      })
     })
   },
   hideConfirm() {
@@ -99,6 +106,10 @@ Page({
    */
   onShow: function () {
     this.startTimer()
+
+    http.post('/tomatoes').then(response => {
+      this.setData({tomato: JSON.parse(response.data)["resource"]})
+    })
   },
 
 
@@ -106,14 +117,24 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+    this.clearTimer()
 
+    http.put(`/tomatoes/${this.data.tomato.id}`, {
+      description: "退出放弃",
+      aborted: true
+    })
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    this.clearTimer()
 
+    http.put(`/tomatoes/${this.data.tomato.id}`, {
+      description: "退出放弃",
+      aborted: true
+    })
   },
 
   /**
