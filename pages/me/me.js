@@ -1,4 +1,6 @@
 // pages/me/me.js
+const {http} = require('../../lib/http')
+
 Page({
 
   /**
@@ -6,33 +8,26 @@ Page({
    */
   data: {
     tab: "tomato",
-    tomatos: {
-      "本周四": [
-        {id: 1,time: "14:00", text: "奥i合肥拉进怀里和金额佛i啊"},
-        {id: 2,time: "14:20", text: "奥拉进怀里和金额佛i啊"},
-        {id: 4,time: "14:50", text: "合肥拉进怀里和金额佛i啊"},
-        {id: 5,time: "15:00", text: "奥i合肥拉进怀里和金"},
-        {id: 6,time: "15:50", text: "奥i合肥拉进怀额佛i啊"}
-      ],
-      "本周五": [
-        {id: 1,time: "14:00", text: "奥i合肥拉进怀里和金额佛i啊"},
-        {id: 2,time: "14:20", text: "奥拉进怀里和金额佛i啊"},
-        {id: 4,time: "14:50", text: "合肥拉进怀里和金额佛i啊"},
-        {id: 5,time: "15:00", text: "奥i合肥拉进怀里和金"},
-        {id: 6,time: "15:50", text: "奥i合肥拉进怀额佛i啊"}
-      ],
-      "本周六": [
-        {id: 1,time: "14:00", text: "奥i合肥拉进怀里和金额佛i啊"},
-        {id: 2,time: "14:20", text: "奥拉进怀里和金额佛i啊"},
-        {id: 4,time: "14:50", text: "合肥拉进怀里和金额佛i啊"},
-        {id: 5,time: "15:00", text: "奥i合肥拉进怀里和金"},
-        {id: 6,time: "15:50", text: "奥i合肥拉进怀额佛i啊"}
-      ]
-    }
+    tomatoes: {},
+    todos: {}
   },
   changeTab(event) {
     let name = event.currentTarget.dataset.name
     this.setData({tab: name})
+  },
+  fetchTomatoes() {
+    http.get('/tomatoes', {
+      is_group: "yes"
+    }).then(response => {
+      this.setData({tomatoes: JSON.parse(response.data)["resources"]})
+    })
+  },
+  fetchTodos() {
+    http.get('/todos', {
+      is_group: "yes"
+    }).then(response => {
+      this.setData({todos: JSON.parse(response.data)["resources"]})
+    })
   },
 
   /**
@@ -53,7 +48,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.fetchTomatoes()
+    this.fetchTodos()
   },
 
   /**

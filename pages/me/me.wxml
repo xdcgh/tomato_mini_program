@@ -22,11 +22,11 @@
     </view>
 
     <scroll-view class="lists" scroll-y="true" wx:if="{{tab === 'tomato'}}">
-        <view class="item" wx:for="{{tomatos}}" wx:for-index="key" wx:key="index">
+        <view class="item" wx:for="{{tomatoes}}" wx:for-index="key" wx:key="index">
             <view class="time">{{key}}</view>
-            <view class="content" wx:for="{{tomatos[key]}}" wx:for-item="itemName" wx:for-index="index" wx:key="index">
-                <text>{{itemName.time}}</text>
-                <view class="detail">{{itemName.text}}</view>
+            <view class="content" wx:for="{{tomatoes[key]}}" wx:for-item="itemName" wx:for-index="index" wx:key="index">
+                <text>{{itemName.create_at}}</text>
+                <view class="detail">{{itemName.description}}</view>
             </view>
         </view>
     </scroll-view>

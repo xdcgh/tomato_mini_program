@@ -10,7 +10,7 @@ Page({
    */
   data: {
     time: '',
-    defaultSecond: 1500,
+    defaultSecond: 3,
     timerStatus: 'stop',
     confirmVisible: false,
     finishConfirmVisible: false,
@@ -81,7 +81,7 @@ Page({
   },
   confirmFinish(event) {
     let content = event.detail
-    console.log(content)
+    console.log('confirmFinish')
   },
   confirmCancel() {
     this.setData({finishConfirmVisible: false})
