@@ -81,8 +81,12 @@ Page({
   },
   confirmFinish(event) {
     let content = event.detail
-    // todo
-    console.log('confirmFinish')
+
+    http.put(`/tomatoes/${this.data.tomato.id}`, {
+      description: content,
+    }).then(() => {
+      this.confirmCancel()
+    })
   },
   confirmCancel() {
     this.setData({finishConfirmVisible: false})
