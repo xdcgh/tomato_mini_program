@@ -1,4 +1,6 @@
 // pages/home/home.js
+const {http} = require('../../lib/http')
+
 Page({
 
   /**
@@ -6,23 +8,27 @@ Page({
    */
   data: {
     visibleConfirm: false,
-    list: [
-      {id: 1, text: '今天学习微信小程序', finished: true},
-      {id: 2, text: '今天学习微信小程序', finished: true},
-      {id: 3, text: '今天学习微信小程序', finished: false},
-      {id: 4, text: '今天学习微信小程序', finished: true},
-      {id: 5, text: '今天学习微信小程序', finished: false}
-    ]
+    list: []
   },
   confirmCreate(event) {
     let content = event.detail
 
     if (content) {
-      let todo = [{id: this.data.list.length + 1, text: content, finished: false}]
-      this.setData({list: todo.concat(this.data.list)})
-    }
 
-    this.hideConfirm()
+      console.log(content)
+
+      http.post('/todos', {
+        completed: false,
+        description: content
+      }).then(response => {
+        console.log(response.data)
+
+        let todo = JSON.parse(response.data)["resource"]
+
+        this.setData({list: this.data.list.concat(todo)})
+        this.hideConfirm()
+      })
+    }
   },
   hideConfirm() {
     this.setData({
@@ -34,6 +40,9 @@ Page({
   },
   destroyTodo(event) {
     let index = event.currentTarget.dataset.index
+
+    http.delete(`/todos?`)
+
     this.data.list[index].finished = true
     this.setData({list: this.data.list})
   },
@@ -56,7 +65,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    http.get('/todos').then(response => {
+      this.setData({list: JSON.parse(response.data)["resources"]})
+    })
   },
 
   /**
