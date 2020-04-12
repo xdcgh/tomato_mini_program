@@ -22,10 +22,11 @@
 
     <scroll-view class="lists" scroll-y="true" wx:if="{{tab === 'tomato'}}">
         <view class="item" wx:for="{{tomatoes}}" wx:for-index="key" wx:key="index">
-            <view class="time">{{key}}</view>
-            <view class="content" wx:for="{{tomatoes[key]}}" wx:for-item="itemName" wx:for-index="index" wx:key="index">
-                <text>{{itemName.create_at}}</text>
-                <view class="detail">{{itemName.description}}</view>
+            <wxs src="../../lib/formatter.wxs" module="formatter"></wxs>
+            <view class="time">{{formatter.monthFormat(key)}}</view>
+            <view class="content" wx:for="{{tomatoes[key]}}" wx:for-index="index" wx:key="index">
+                <text>{{formatter.dateFormat(item.created_at, 'hh:mm')}}</text>
+                <view class="detail">{{item.description}}</view>
             </view>
         </view>
     </scroll-view>

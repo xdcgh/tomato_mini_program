@@ -17,10 +17,25 @@ Page({
     this.setData({tab: name})
   },
   fetchTomatoes() {
-    http.get('/tomatoes', {
-      is_group: "yes"
-    }).then(response => {
-      this.setData({tomatoes: JSON.parse(response.data)["resources"]})
+    http.get('/tomatoes').then(response => {
+      let list = JSON.parse(response.data)["resources"]
+
+      // 实现数据按天分组
+      list.map(item => {
+        const date = new Date(item["created_at"])
+        let month = date.getMonth() + 1
+        if ([9, 10, 11].indexOf(date.getMonth()) < 0) {
+          month = "0"+ month
+        }
+        const key = month + "" + date.getDate()
+        if (this.data.tomatoes[key]) {
+          this.data.tomatoes[key].push(item)
+        } else {
+          this.data.tomatoes[key] = []
+        }
+      })
+
+      this.setData({tomatoes: this.data.tomatoes})
     })
   },
   fetchTodos() {
