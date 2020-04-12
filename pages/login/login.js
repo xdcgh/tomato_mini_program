@@ -23,7 +23,7 @@ Page({
       app_id,
       app_secret
     }).then(response => {
-      wx.setStorageSync('me', response.data)
+      wx.setStorageSync('me', JSON.parse(response.data)["resource"])
       wx.setStorageSync('X-token', response.header["X-token"])
 
       wx.reLaunch({

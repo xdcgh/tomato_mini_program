@@ -81,6 +81,7 @@ Page({
   },
   confirmFinish(event) {
     let content = event.detail
+    // todo
     console.log('confirmFinish')
   },
   confirmCancel() {
